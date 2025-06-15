@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Hunting - ළමා සුරක්ෂිතතාව</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --secondary-gradient: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            --success-gradient: linear-gradient(45deg, #26de81, #20bf6b);
+            --warning-gradient: linear-gradient(45deg, #feca57, #ff9ff3);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text-light: rgba(255, 255, 255, 0.9);
+            --text-dark: #2c3e50;
+            --shadow-light: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --shadow-heavy: 0 15px 35px rgba(31, 38, 135, 0.5);
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--primary-gradient);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Animated Background Particles */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 0.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 1.5s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 2.5s; }
+        .particle:nth-child(10) { left: 95%; animation-delay: 3.5s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Glass Morphism Header */
+        header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 30px 0;
+            border-radius: 25px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-light);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+            animation: logoGlow 2s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 2;
+        }
+        
+        @keyframes logoGlow {
+            from { text-shadow: 0 0 20px rgba(255, 107, 107, 0.5); }
+            to { text-shadow: 0 0 40px rgba(255, 107, 107, 0.8); }
+        }
+        
+        .tagline {
+            font-size: 1.4rem;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            font-weight: 300;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Emergency Banner with 3D Effect */
+        .emergency-banner {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            animation: emergencyPulse 2s infinite;
+            box-shadow: var(--shadow-heavy);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        @keyframes emergencyPulse {
+            0%, 100% { transform: scale(1) rotateX(0deg); box-shadow: var(--shadow-heavy); }
+            50% { transform: scale(1.02) rotateX(2deg); box-shadow: 0 20px 40px rgba(255, 107, 107, 0.6); }
+        }
+        
+        .emergency-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .emergency-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 15px 0;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: numberGlow 1.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes numberGlow {
+            from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+            to { text-shadow: 0 0 30px rgba(255, 255, 255, 0.8); }
+        }
+        
+        /* Enhanced Cards with Glass Morphism */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-light);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .card:hover::before {
+            left: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-heavy);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .card h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(45deg, #ff6b6b, #feca57) 1;
+            padding-bottom: 15px;
+            position: relative;
+        }
+        
+        .card p, .card li {
+            color: var(--text-light);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+        
+        /* Animated Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .grid .card {
+            animation: slideInUp 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .grid .card:nth-child(1) { animation-delay: 0.1s; }
+        .grid .card:nth-child(2) { animation-delay: 0.2s; }
+        .grid .card:nth-child(3) { animation-delay: 0.3s; }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Enhanced Hotline Grid */
+        .hotline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .hotline-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #ff6b6b;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .hotline-item:hover {
+            transform: translateX(10px) scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+        }
+        
+        .hotline-item h4 {
+            color: white;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .hotline-item .number {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #feca57;
+            text-shadow: 0 0 10px rgba(254, 202, 87, 0.5);
+        }
+        
+        .hotline-item p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        /* Enhanced Warning Signs */
+        .warning-signs {
+            background: rgba(254, 202, 87, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(254, 202, 87, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+        }
+        
+        .warning-signs::before {
+            content: '⚠';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--warning-gradient);
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+        }
+        
+        .warning-signs h4 {
+            color: #feca57;
+            margin-bottom: 20px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .warning-signs ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .warning-signs li {
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+        
+        .warning-signs li:before {
+            content: "⚠";
+            position: absolute;
+            left: 0;
+            color: #feca57;
+            font-weight: bold;
+            animation: warningBlink 2s infinite;
+        }
+        
+        @keyframes warningBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.5; }
+        }
+        
+        .warning-signs li:hover {
+            transform: translateX(10px);
+            color: white;
+        }
+        
+        /* 3D Buttons */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--success-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin: 8px;
+            position: relative;
+            transform-style: preserve-3d;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(38, 222, 129, 0.3);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+            border-radius: 50px;
+            transform: translateZ(1px);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 25px rgba(38, 222, 129, 0.5);
+        }
+        
+        .btn:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+        
+        .btn-danger {
+            background: var(--secondary-gradient);
+            box-shadow: 0 8px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-danger:hover {
+            box-shadow: 0 15px 25px rgba(255, 107, 107, 0.5);
+        }
+        
+        /* Enhanced Tabs */
+        .tabs {
+            display: flex;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-light);
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .tab::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--secondary-gradient);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .tab.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .tab.active::before {
+            width: 80%;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Enhanced Resources List */
+        .resources-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .resources-list li {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid #26de81;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .resources-list li:hover {
+            transform: translateX(10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 25px rgba(38, 222, 129, 0.2);
+        }
+        
+        .resources-list li strong {
+            color: #26de81;
+            font-weight: 700;
+        }
+        
+        /* Mental Health Support Section */
+        .mental-health {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mental-health::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+            animation: mentalHealthShimmer 4s linear infinite;
+        }
+        
+        @keyframes mentalHealthShimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .mental-health h3 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .mental-health p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Enhanced Footer */
+        footer {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            border-radius: 20px;
+            margin-top: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #26de81, #667eea);
+            animation: footerGradient 3s linear infinite;
+        }
+        
+        @keyframes footerGradient {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        footer h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .developer-credit {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            font-style: italic;
+        }
+        
+        .developer-credit .dev-name {
+            color: #feca57;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .team-name {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .emergency-number {
+                font-size: 2rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .hotline-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Accessibility Improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Focus states for accessibility */
+        .btn:focus,
+        .tab:focus,
+        .hotline-item:focus {
+            outline: 3px solid #feca57;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">🛡 STOP HUNTING</div>
+            <div class="tagline">ළමා සුරක්ෂිතතාව සහ ගෘහස්ථ හිංසනය වැළැක්වීම</div>
+        </header>
+        
+        <div class="emergency-banner" role="alert" aria-live="polite">
+            <h2>🚨 හදිසි අවස්ථාවක්ද?</h2>
+            <div class="emergency-number">119 - පොලිසිය</div>
+            <div class="emergency-number">1919 - ළමා හිමිකම් ආරක්ෂණ අධිකාරිය</div>
+            <p>24/7 සේවාව - ඔබ ආරක්ෂිතයි 💙</p>
+        </div>
+        
+        <div class="mental-health">
+            <h3>🧠 මානසික සෞඛ්‍ය සහාය</h3>
+            <p>ඔබ තනිවම නොවේ. අපි ඔබත් සමඟ ගමන් කරමු. ඔබගේ මානසික සෞඛ්‍යය ගැටළු සඳහා වෛද්‍ය උපදේශනය ලබා ගන්න.</p>
+            <a href="tel:1926" class="btn">මානසික සහාය - 1926</a>
+        </div>
+        
+        <nav class="tabs" role="tablist">
+            <button class="tab active" onclick="showTab('home')" role="tab" aria-selected="true">🏠 මුල් පිටුව</button>
+            <button class="tab" onclick="showTab('help')" role="tab" aria-selected="false">📞 උදව් ලබා ගන්න</button>
+            <button class="tab" onclick="showTab('report')" role="tab" aria-selected="false">📝 වාර්තා කරන්න</button>
+            <button class="tab" onclick="showTab('education')" role="tab" aria-selected="false">🎓 අධ්‍යාපනය</button>
+        </nav>
+        
+        <div id="home" class="tab-content active" role="tabpanel">
+            <div class="grid">
+                <div class="card">
+                    <h3>🏠 ගෘහස්ථ හිංසනය</h3>
+                    <p>ගෘහස්ථ හිංසනය යනු පවුල් සාමාජිකයෙකු විසින් තවත් සාමාජිකයෙකුට කරන ඕනෑම ආකාරයක හිංසනයකි. මෙයට ශාරීරික, මානසික, ලිංගික, සහ ආර්ථික අපයෝජන ඇතුළත් වේ.</p>
+                    
+                    <div class="warning-signs">
+                        <h4>අනතුරු ඇඟවීමේ සලකුණු:</h4>
+                        <ul>
+                            <li>නිතර අසාමාන්‍ය තුවාල හෝ රිදවීම්</li>
+                            <li>අනෙකාගේ හැසිරීම පාලනය කිරීම</li>
+                            <li>සමාජයෙන් හුදකලා කිරීම</li>
+                            <li>මානසික හෝ වාචික අපයෝජන</li>
+                            <li>ආර්ථික පාලනය සහ තර්ජන</li>
+                            <li>ජංගම දුරකථන හෝ සමාජ මාධ්‍ය පරීක්ෂා කිරීම</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#help" class="btn btn-danger">වැඩි විස්තර ලබා ගන්න</a>
+                </div>
+                
+                <div class="card">
+                    <h3>👶 ළමා අපයෝජන</h3>
+                    <p>ළමා අපයෝජන යනු 18 වයසට අඩු ළමයෙකුට කරන ශාරීරික, මානසික, ලිංගික හෝ නිර්දයතාවයෙන් සැලකීමයි. සෑම ළමයෙකුටම ආරක්ෂිත පරිසරයක වැඩීමට අයිතියක් ඇත.</p>
+                    
+                    <div class="warning-signs">
+                        <h4>අනතුරු ඇඟවීමේ සලකුණු:</h4>
+                        <ul>
+                            <li>හඳුනා නොගත් තුවාල හෝ රිදවීම්</li>
+                            <li>හැසිරීමේ හදිසි වෙනස්කම්</li>
+                            <li>අධික බිය හෝ ආතතිය</li>
+                            <li>වයසට නොගැලපෙන ලිංගික හැසිරීම්</li>
+                            <li>පාසල් කාර්ය සාධනයේ පිරිහීම</li>
+                            <li>නිදාගැනීමේ අපහසුතා හෝ දුක්මනා</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#report" class="btn btn-danger">වාර්තා කරන්න</a>
+                </div>
+                
+                <div class="card">
+                    <h3>💻 අන්තර්ජාල ආරක්ෂාව</h3>
+                    <p>අන්තර්ජාලයේ ළමයින්ට මුහුණ දෙන අනතුරු සහ සයිබර් හිංසනය වැළැක්වීම. ඩිජිටල් ලෝකයේ ආරක්ෂිතව සිටීමේ ක්‍රම.</p>
+                    
+                    <div class="warning-signs">
+                        <h4>අන්තර්ජාල අනතුරු සලකුණු:</h4>
+                        <ul>
+                            <li>නොදන්නා අයගෙන් පණිවිඩ ලැබීම</li>
+                            <li>පුද්ගලික තොරතුරු ඉල්ලීම</li>
+                            <li>රහසිගත හමුවීම් යෝජනා</li>
+                            <li>අනුසි්සන සයිට් හරහා ප්‍රවේශ වීම</li>
+                            <li>සයිබර් හිංසනය සහ තර්ජන</li>
+                            <li>නුසුදුසු ඡායාරූප හුවමාරුව</li>
+                        </ul>
+                    </div>
+                    
+                    <a href="#education" class="btn">ආරක්ෂිත අන්තර්ජාල භාවිතය</a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="help" class="tab-content" role="tabpanel">
+            <div class="card">
+                <h3>📞 හදිසි උදව් ලබා ගන්නා අංක</h3>
+                <div class="hotline-grid">
+                    <div class="hotline-item" tabindex="0">
+                        <h4>🚨 පොලිස් හදිසි සේවා</h4>
+                        <div class="number">119</div>
+                        <p>24/7 හදිසි සේවාව - ඕනෑම වේලාවක</p>
+                    </div>
+                    
+                    <div class="hotline-item" tabindex="0">
+                        <h4>👶 ළමා හිමිකම් ආරක්ෂණ අධිකාරිය</h4>
+                        <div class="number">1919</div>
+                        <p>24/7 ළමා උදව් සේවාව - විශේෂඥ උපදේශනය</p>
+                    </div>
+                    
+                    <div class="hotline-item" tabindex="0">
+                        <h4>🏥 ජාතික ළමා ආරක්ෂණ අධිකාරිය</h4>
+                        <div class="number">011-2134731</div>
+                        <p>සාමාන්‍ය කාර්ය මුහුර්ත - නිලධාරී සේවා</p>
+                    </div>
+                    
+                    <div class="hotline-item" tabindex="0">
+                        <h4>💙 Childline Sri Lanka</h4>
+                        <div class="number">1929</div>
+                        <p>24/7 ළමා උදව් සේවාව - රහස්‍ය සහාය</p>
+                    </div>
+                    
+                    <div class="hotline-item" tabindex="0">
+                        <h4>👩 Women in Need (WIN)</h4>
+                        <div class="number">011-2671411</div>
+                        <p>කාන්තාවන්ට විශේෂ උදව් සහ සහාය</p>
+                    </div>
+                    
+                    <div class="hotline-item" tabindex="0">
+                        <h4>🧠 මානසික සහාය සේවාව</h4>
+                        <div class="number">1926</div>
+                        <p>24/7 මානසික සෞඛ්‍ය උපදේශනය</p>
+                    </div>
+                    
+                    <div class="hotline-item" tabindex="0">
+                        <h4>🤝 Mithuru Mithuro Movement</h4>
+                        <div class="number">011-2055544</div>
+                        <p>මානසික සහාය සහ උපදේශනය</p>
+                    </div>
+                    
+                    <div class="hotline-item" tabindex="0">
+                        <h4>🆘 Sumithrayo (සමිත්‍රයෝ)</h4>
+                        <div class="number">011-2696666</div>
+                        <p>24/7 සමිථ්‍රයෝ සහාය සේවාව</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>🏥 වෛද්‍ය සහ නීතිමය සහාය</h3>
+                <ul class="resources-list">
+                    <li><strong>🏥 ජාතික රෝහල - කොළඹ:</strong> 011-2691111 (24/7 හදිසි සේවා)</li>
+                    <li><strong>👩‍⚖ කාන්තා හා ළමා කටයුතු අමාත්‍යාංශය:</strong> 011-2336327</li>
+                    <li><strong>⚖ නීතිඥ ආධාර කොමිසම:</strong> 011-2323043 (නොමිලේ නීති උපදේශනය)</li>
+                    <li><strong>🛡 විකටිම් සහ සාක්ෂිකරු ආරක්ෂණ අධිකාරිය:</strong> 011-2059670</li>
+                    <li><strong>🏛 මානව හිමිකම් කොමිසම:</strong> 011-2505000</li>
+                    <li><strong>🩺 මානසික සෞඛ්‍ය ආයතනය:</strong> 011-2696006</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>🌐 ඔන්ලයින් සහාය වේදිකා</h3>
+                <ul class="resources-list">
+                    <li><strong>💻 ළමා හිමිකම් ආරක්ෂණ අධිකාරිය:</strong> www.childprotection.gov.lk</li>
+                    <li><strong>👮‍♂ ශ්‍රී ලංකා පොලිසිය:</strong> www.police.lk</li>
+                    <li><strong>🤝 Childline Sri Lanka:</strong> www.childlinelk.org</li>
+                    <li><strong>👩 Women in Need:</strong> www.womeninneed.lk</li>
+                    <li><strong>🧠 සමිත්‍රයෝ:</strong> www.sumithrayo.lk</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="report" class="tab-content" role="tabpanel">
+            <div class="card">
+                <h3>📝 ආරක්ෂිතව වාර්තා කරන්න</h3>
+                <p>ඔබට හිංසනයක් වාර්තා කිරීමට අවශ්‍ය නම්, මේ ක්‍රම භාවිතා කරන්න. ඔබගේ ආරක්ෂාව අපගේ ප්‍රමුඛතාවයයි.</p>
+                
+                <div style="margin: 30px 0;">
+                    <h4>🚨 1. හදිසි අවස්ථාවක:</h4>
+                    <p>වහාම <strong>119</strong> අමතන්න - 24/7 සේවාව</p>
+                    <p>ඔබ අනතුරේ නම් වහාම ආරක්ෂිත ස්ථානයකට යන්න</p>
+                </div>
+                
+                <div style="margin: 30px 0;">
+                    <h4>👶 2. ළමා අපයෝජන සඳහා:</h4>
+                    <p><strong>1919</strong> (ළමා හිමිකම් ආරක්ෂණ අධිකාරිය) අමතන්න</p>
+                    <p><strong>1929</strong> (Childline Sri Lanka) - රහස්‍ය සහාය</p>
+                </div>
+                
+                <div style="margin: 30px 0;">
+                    <h4>💻 3. ඔන්ලයින් වාර්තා කිරීම:</h4>
+                    <p>• <strong>පොලිස් වෙබ් අඩවිය:</strong> www.police.lk<br>
+                    • <strong>ළමා හිමිකම් ආරක්ෂණ අධිකාරිය:</strong> www.childprotection.gov.lk<br>
+                    • <strong>1919 ඔන්ලයින් වාර්තා:</strong> ආරක්ෂිත සහ රහසිගත</p>
+                </div>
+                
+                <div style="margin: 30px 0;">
+                    <h4>📱 4. SMS වාර්තා කිරීම:</h4>
+                    <p>ඇමතීමට නොහැකි නම් SMS හරහා වාර්තා කරන්න:</p>
+                    <p><strong>1919</strong> ට "HELP [ඔබගේ පණිවිඩය]" යවන්න</p>
+                </div>
+                
+                <div class="warning-signs">
+                    <h4>📋 වාර්තා කිරීමේදී සිහිපත් කරන්න:</h4>
+                    <ul>
+                        <li><strong>කුමක්</strong> සිදුවූවාද (සිදුවීම් විස්තරය)</li>
+                        <li><strong>කොහේද</strong> සිදුවූවේ (ස්ථානය)</li>
+                        <li><strong>කවදාද</strong> සිදුවූවේ (දිනය සහ වේලාව)</li>
+                        <li><strong>කවුරුන්ද</strong> සම්බන්ධයි (හැඳුනුම්පත් අංක)</li>
+                        <li><strong>වෛද්‍ය ප්‍රතිකාර</strong> අවශ්‍යද</li>
+                        <li><strong>සාක්ෂිකරුවන්</strong> සිටිනවාද</li>
+                    </ul>
+                </div>
+                
+                <div style="margin: 30px 0; padding: 20px; background: rgba(38, 222, 129, 0.1); border-radius: 15px; border-left: 5px solid #26de81;">
+                    <h4 style="color: #26de81;">✅ ඔබ දැන සිටිය යුතු:</h4>
+                    <p>• ඔබගේ වාර්තාව සම්පූර්ණයෙන්ම රහසිගතව සලකනු ලැබේ<br>
+                    • ප්‍රාථමික ආරක්ෂාව සපයනු ලැබේ<br>
+                    • වෛද්‍ය පරීක්ෂණ සහ ප්‍රතිකාර සපයනු ලැබේ<br>
+                    • නීතිමය උපදේශනය ලබා ගත හැක<br>
+                    • මානසික උපදේශනය සහ සහාය ලබා ගත හැක</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <a href="tel:119" class="btn btn-danger">🚨 119 අමතන්න</a>
+                    <a href="tel:1919" class="btn btn-danger">👶 1919 අමතන්න</a>
+                    <a href="tel:1929" class="btn">💙 1929 අමතන්න</a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="education" class="tab-content" role="tabpanel">
+            <div class="grid">
+                <div class="card">
+                    <h3>👨‍👩‍👧‍👦 දෙමාපියන් සහ භාරකරුවන්ට</h3>
+                    <ul class="resources-list">
+                        <li><strong>🗣 විවෘත සංවාදය:</strong> ළමයින් සමග නිතර කතා කරන්න, ඔවුන්ගේ දැනීම් සහ අත්දැකීම් ගැන අසන්න</li>
+                        <li><strong>🏠 ආරක්ෂිත වාතාවරණය:</strong> ගෘහය තුළ ආරක්ෂිත සහ ප්‍රේමණීය වාතාවරණයක් නිර්මාණය කරන්න</li>
+                        <li><strong>👁 අනතුරු සලකුණු:</strong> ළමයාගේ හැසිරීම්, මානසික තත්වය වෙනස්වීම් නිරීක්ෂණය කරන්න</li>
+                        <li><strong>🤝 විශ්වසනීය වන්න:</strong> ළමයාට ඔබ වෙත පැමිණීමට පහසු වන පරිදි හැසිරෙන්න</li>
+                        <li><strong>💻 ඩිජිටල් අධීක්ෂණය:</strong> ළමයාගේ ඔන්ලයින් ක්‍රියාකාරකම් ආරක්ෂිතව අධීක්ෂණය කරන්න</li>
+                        <li><strong>📚 අධ්‍යාපනය:</strong> ළමයින්ට ආරක්ෂාව ගැන ගුණාත්මක අධ්‍යාපනය ලබා දෙන්න</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>🎓 ගුරුවරුන් සහ අධ්‍යාපනිකයන්ට</h3>
+                    <ul class="resources-list">
+                        <li><strong>📋 ප්‍රතිපත්ති:</strong> ළමා ආරක්ෂණ ප්‍රතිපත්ති ක්‍රියාත්මක කරන්න සහ අනුගමනය කරන්න</li>
+                        <li><strong>🔍 හඳුනා ගැනීම:</strong> අනතුරු සලකුණු හඳුනා ගැනීමේ පුහුණුව ලබා ගන්න</li>
+                        <li><strong>📞 වාර්තා කිරීම:</strong> වාර්තා කිරීමේ ක්‍රියාපටිපාටිය හා නිල මාර්ග දැන සිටින්න</li>
+                        <li><strong>❤ විශ්වාසය:</strong> සිසුන්ට ඔබ වෙත පැමිණීමට විශ්වාසයක් ඇති කරන්න</li>
+                        <li><strong>👁‍🗨 නිරීක්ෂණය:</strong> නිතිපතා සිසුන්ගේ හැසිරීම් වෙනස්කම් නිරීක්ෂණය කරන්න</li>
+                        <li><strong>🤝 සහයෝගිතාව:</strong> දෙමාපියන් සමඟ සහයෝගයෙන් වැඩ කරන්න</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>👦👧 ළමයින් සහ නව යොවුන් වියේ දරුවන්ට</h3>
+                    <ul class="resources-list">
+                        <li><strong>🚫 "නැහැ" කීම:</strong> ඔබගේ ශරීරය ඔබේ දෙයි - අවශ්‍ය නැති ස්පර්ශයට "නැහැ" කියන්න</li>
+                        <li><strong>🤐 රහස් නොතබන්න:</strong> අමුතු රහස් තබන්න කියනවා නම් විශ්වසනීය වැඩිහිටියෙකුට කියන්න</li>
+                        <li><strong>🏃‍♂ ආරක්ෂිතව සිටින්න:</strong> අනතුරුදායක තත්වවලදී වහාම ඉවත්වන්න</li>
+                        <li><strong>💻 ඔන්ලයින් ආරක්ෂාව:</strong> අන්තර්ජාලයේ නොදන්නා අය සමඟ පුද්ගලික තොරතුරු හුවමාරු නොකරන්න</li>
+                        <li><strong>📞 හදිසි අංක:</strong> වැදගත් හදිසි අංක මතක තබා ගන්න (119, 1919)</li>
+                        <li><strong>🗣 කතා කරන්න:</strong> අමුතු දෙයක් සිදුවූවා නම් විශ්වසනීය වැඩිහිටියෙකුට කියන්න</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>🌐 අන්තර්ජාල ආරක්ෂාව - සියලු දෙනාටම</h3>
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin-top: 20px;">
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px;">
+                        <h4 style="color: #feca57; margin-bottom: 15px;">🔒 පුද්ගලික තොරතුරු ආරක්ෂාව</h4>
+                        <p>• සම්පූර්ණ නම, ලිපිනය, දුරකථන අංකය හුවමාරු නොකරන්න<br>
+                        • පාසල, නිවසේ තොරතුරු නොදන්නා අයට නොකියන්න<br>
+                        • ඡායාරූප ගොනු යැවීමේදී සිහියෙන් සිටින්න</p>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px;">
+                        <h4 style="color: #26de81; margin-bottom: 15px;">👥 සමාජ මාධ්‍ය ආරක්ෂාව</h4>
+                        <p>• ගෝලීයතා සැකසුම් පරීක්ෂා කරන්න<br>
+                        • නොදන්නා මිතුරු ඉල්ලීම් ප්‍රතික්ෂේප කරන්න<br>
+                        • නුසුදුසු අන්තර්ගත වාර්තා කරන්න</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <h3>🤝 එකට අපි ළමයින් ආරක්ෂා කරමු</h3>
+            <p>ඔබගේ ක්‍රියාව ජීවිතයක් බේරා ගත හැකිය 💙</p>
+            <p>මෙම වෙබ් අඩවිය ලාභ නොලබන අරමුණින් සාදා ඇත</p>
+            <div style="margin-top: 30px;">
+                <a href="tel:119" class="btn btn-danger">🚨 හදිසි - 119</a>
+                <a href="tel:1919" class="btn btn-danger">👶 ළමා උදව් - 1919</a>
+                <a href="tel:1926" class="btn">🧠 මානසික සහාය - 1926</a>
+                <br>
+                <br>
+                පැමිණිලි කිරිමට හැකි ස්ථාන
+                
+                <br>
+                <a href="https://childprotection.gov.lk/si/" class="btn btn-danger">ළමා හිමිකම් ආරක්ෂණ අධිකාරිය</a>
+                <a href="https://www.police.lk/" class="btn btn-danger">පොලිසිය</a>
+            </div>
+            
+            <div class="developer-credit">
+                <p>💻 Developed by <span class="dev-name">Ameesha Induwara</span></p>
+                <p>🎯 Powered by <span class="team-name">ZenZONE Team</span></p>
+                <p style="font-size: 0.9rem; margin-top: 10px; color: rgba(255,255,255,0.7);">
+                    අප සියලු දෙනාම එකට ළමයින්ගේ අනාගතය ආරක්ෂා කරමු 🌟
+                </p>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(function(content) {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(function(tab) {
+                tab.classList.remove('active');
+                tab.setAttribute('aria-selected', 'false');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            event.target.setAttribute('aria-selected', 'true');
+        }
+        
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add keyboard navigation for tabs
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    tab.click();
+                }
+            });
+        });
+        
+        // Add hover effects to hotline items
+        document.querySelectorAll('.hotline-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(10px) scale(1.05)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0) scale(1)';
+            });
+        });
+        
+        // Enhanced accessibility - screen reader announcements
+        function announceTabChange(tabName) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'sr-only';
+            announcement.textContent = ${tabName} tab selected;
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
+        }
+        
+        // Add click handlers for better UX
+        document.querySelectorAll('.hotline-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const number = this.querySelector('.number').textContent;
+                if (confirm(${number} අමතන්න?)) {
+                    window.location.href = tel:${number};
+                }
+            });
+        });
+    </script>
+</body>
+</html>
